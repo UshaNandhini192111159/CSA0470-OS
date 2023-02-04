@@ -1,0 +1,82 @@
+#define MAX_REQUESTS 200
+int requests[MAX_REQUESTS];
+int num_requests = 0;
+int head;
+void sort_requests() 
+{
+    int i, j;
+    for (i = #include <stdio.h>
+#include <math.h>
+0; i < num_requests - 1; i++) 
+	{
+        for (j = i + 1; j < num_requests; j++) 
+		{
+            if (requests[i] > requests[j]) 
+			{
+                int temp = requests[i];
+                requests[i] = requests[j];
+                requests[j] = temp;
+            }
+        }
+    }
+}
+int main() 
+{
+    int i, j;
+    int total_head_movement = 0;
+	printf("Enter the number of disk requests: ");
+    scanf("%d", &num_requests);
+    printf("Enter the requests (one per line):\n");
+    for (i = 0; i < num_requests; i++) 
+	{
+        scanf("%d", &requests[i]);
+    }
+    printf("Enter the initial head position: ");
+    scanf("%d", &head);
+	sort_requests();
+	int current_head = head;
+    int current_direction = 1;
+	for (i = 0; i < num_requests; i++) 
+	{
+        int request = requests[i];
+        if (current_direction == 1) 
+		{
+            for (j = current_head; j < request; j++) 
+			{
+                total_head_movement++;
+            }
+        } 
+		else 
+		{
+            for (j = current_head; j > request; j--) 
+			{
+                total_head_movement++;
+            }
+        }
+        current_head = request;
+        current_direction = -current_direction;
+    }
+	printf("Total head movement: %d\n", total_head_movement);
+    printf("Average head movement: %.2f\n", (double) total_head_movement / num_requests);
+    return 0;
+}
+
+OUTPUT:
+Enter the number of disk requests: 9
+Enter the requests (one per line):
+55
+58
+60
+18
+90
+150
+160
+184
+70
+Enter the initial head position: 18
+Total head movement: 97
+Average head movement: 10.78
+
+--------------------------------
+Process exited after 57.63 seconds with return value 0
+Press any key to continue . . .
